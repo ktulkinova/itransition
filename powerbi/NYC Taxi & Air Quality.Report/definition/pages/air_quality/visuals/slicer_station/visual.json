@@ -1,0 +1,54 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "slicer_station",
+    "position": {
+        "x": 288,
+        "y": 8,
+        "z": 11000,
+        "width": 260,
+        "height": 56,
+        "tabOrder": 11000
+    },
+    "visual": {
+        "visualType": "slicer",
+        "query": {
+            "queryState": {
+                "Values": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactAirQualityDaily"
+                                        }
+                                    },
+                                    "Property": "location_name"
+                                }
+                            },
+                            "queryRef": "FactAirQualityDaily.location_name",
+                            "nativeQueryRef": "location_name",
+                            "active": true
+                        }
+                    ]
+                }
+            }
+        },
+        "drillFilterOtherVisuals": true,
+        "objects": {
+            "data": [
+                {
+                    "properties": {
+                        "mode": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Dropdown'"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

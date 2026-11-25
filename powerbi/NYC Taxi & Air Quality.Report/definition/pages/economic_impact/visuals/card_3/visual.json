@@ -1,0 +1,38 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "card_3",
+    "position": {
+        "x": 646.0,
+        "y": 70,
+        "z": 32000,
+        "width": 303.0,
+        "height": 96,
+        "tabOrder": 32000
+    },
+    "visual": {
+        "visualType": "card",
+        "query": {
+            "queryState": {
+                "Values": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactTaxiDaily"
+                                        }
+                                    },
+                                    "Property": "USD per EUR"
+                                }
+                            },
+                            "queryRef": "FactTaxiDaily.USD per EUR",
+                            "nativeQueryRef": "USD per EUR"
+                        }
+                    ]
+                }
+            }
+        },
+        "drillFilterOtherVisuals": true
+    }
+}

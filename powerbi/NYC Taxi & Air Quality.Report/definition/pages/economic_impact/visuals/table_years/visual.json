@@ -1,0 +1,209 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "table_years",
+    "position": {
+        "x": 16,
+        "y": 447,
+        "z": 35000,
+        "width": 480,
+        "height": 261,
+        "tabOrder": 35000
+    },
+    "visual": {
+        "visualType": "tableEx",
+        "query": {
+            "queryState": {
+                "Values": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "DimDate"
+                                        }
+                                    },
+                                    "Property": "year"
+                                }
+                            },
+                            "queryRef": "DimDate.year",
+                            "nativeQueryRef": "year"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactTaxiDaily"
+                                        }
+                                    },
+                                    "Property": "Trips"
+                                }
+                            },
+                            "queryRef": "FactTaxiDaily.Trips",
+                            "nativeQueryRef": "Trips"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactTaxiDaily"
+                                        }
+                                    },
+                                    "Property": "Revenue USD"
+                                }
+                            },
+                            "queryRef": "FactTaxiDaily.Revenue USD",
+                            "nativeQueryRef": "Revenue USD"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactTaxiDaily"
+                                        }
+                                    },
+                                    "Property": "GDP USD"
+                                }
+                            },
+                            "queryRef": "FactTaxiDaily.GDP USD",
+                            "nativeQueryRef": "GDP USD"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactAirQualityDaily"
+                                        }
+                                    },
+                                    "Property": "PM25"
+                                }
+                            },
+                            "queryRef": "FactAirQualityDaily.PM25",
+                            "nativeQueryRef": "PM25"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactAirQualityDaily"
+                                        }
+                                    },
+                                    "Property": "NO2"
+                                }
+                            },
+                            "queryRef": "FactAirQualityDaily.NO2",
+                            "nativeQueryRef": "NO2"
+                        }
+                    ]
+                }
+            },
+            "sortDefinition": {
+                "sort": [
+                    {
+                        "field": {
+                            "Column": {
+                                "Expression": {
+                                    "SourceRef": {
+                                        "Entity": "DimDate"
+                                    }
+                                },
+                                "Property": "year"
+                            }
+                        },
+                        "direction": "Ascending"
+                    }
+                ],
+                "isDefaultSort": false
+            }
+        },
+        "drillFilterOtherVisuals": true,
+        "objects": {
+            "values": [
+                {
+                    "properties": {
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "9D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "columnHeaders": [
+                {
+                    "properties": {
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "9D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "total": [
+                {
+                    "properties": {
+                        "totals": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "visualContainerObjects": {
+            "title": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "true"
+                                }
+                            }
+                        },
+                        "text": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'By year'"
+                                }
+                            }
+                        },
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "12D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "subTitle": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

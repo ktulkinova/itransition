@@ -1,0 +1,145 @@
+table FactAirQualityDaily
+	lineageTag: d23507c8-1863-4245-aa0d-54955d413387
+	sourceLineageTag: [dbo].[FactAirQualityDaily]
+
+	measure PM25 =
+			CALCULATE(
+			    DIVIDE(
+			        SUMX(FactAirQualityDaily, FactAirQualityDaily[avg_value] * FactAirQualityDaily[measurement_count]),
+			        SUM(FactAirQualityDaily[measurement_count])
+			    ),
+			    FactAirQualityDaily[parameter] = "pm25"
+			)
+		formatString: 0.00
+		lineageTag: 7234f39c-b8e1-4503-80dd-7448f1cfbab7
+
+	measure NO2 =
+			CALCULATE(
+			    DIVIDE(
+			        SUMX(FactAirQualityDaily, FactAirQualityDaily[avg_value] * FactAirQualityDaily[measurement_count]),
+			        SUM(FactAirQualityDaily[measurement_count])
+			    ),
+			    FactAirQualityDaily[parameter] = "no2"
+			)
+		formatString: 0.0000
+		lineageTag: e230fecd-94a7-420a-a216-a07962f33b2f
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0c7ab072-7e01-45bc-bd18-ba01d6ee878d
+		sourceLineageTag: date_key
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: eb91b0a2-45e5-4af1-a25e-b095687ad7e0
+		sourceLineageTag: year
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: eb3eb371-720b-4934-8db7-bb62089df315
+		sourceLineageTag: location_id
+		summarizeBy: none
+		sourceColumn: location_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_name
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: de58ec4d-5f2e-485a-b0d2-1bd66994f3e7
+		sourceLineageTag: location_name
+		summarizeBy: none
+		sourceColumn: location_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column parameter
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: 165310f4-862c-460c-8146-f62c88a62a70
+		sourceLineageTag: parameter
+		summarizeBy: none
+		sourceColumn: parameter
+
+		annotation SummarizationSetBy = Automatic
+
+	column units
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: 28ecbf69-df88-4cd6-ba87-02a11fda189f
+		sourceLineageTag: units
+		summarizeBy: none
+		sourceColumn: units
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_value
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 72fa2cd3-9070-4a3b-921f-1fcb447b8011
+		sourceLineageTag: avg_value
+		summarizeBy: sum
+		sourceColumn: avg_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column min_value
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 6c4aba3b-cafc-467b-817b-911988b54f8a
+		sourceLineageTag: min_value
+		summarizeBy: sum
+		sourceColumn: min_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column max_value
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 3293f851-ee9c-4216-82e9-8b56cd5cbca0
+		sourceLineageTag: max_value
+		summarizeBy: sum
+		sourceColumn: max_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column measurement_count
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a703a0de-9488-4502-9221-d25798d3f129
+		sourceLineageTag: measurement_count
+		summarizeBy: sum
+		sourceColumn: measurement_count
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactAirQualityDaily = entity
+		mode: directLake
+		source
+			entityName: FactAirQualityDaily
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,248 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "table_zones",
+    "position": {
+        "x": 16.0,
+        "y": 402,
+        "z": 26000,
+        "width": 618.0,
+        "height": 306,
+        "tabOrder": 26000
+    },
+    "visual": {
+        "visualType": "tableEx",
+        "query": {
+            "queryState": {
+                "Values": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "DimZone"
+                                        }
+                                    },
+                                    "Property": "zone"
+                                }
+                            },
+                            "queryRef": "DimZone.zone",
+                            "nativeQueryRef": "zone"
+                        },
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "DimZone"
+                                        }
+                                    },
+                                    "Property": "borough"
+                                }
+                            },
+                            "queryRef": "DimZone.borough",
+                            "nativeQueryRef": "borough"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactTaxiDaily"
+                                        }
+                                    },
+                                    "Property": "Trips"
+                                }
+                            },
+                            "queryRef": "FactTaxiDaily.Trips",
+                            "nativeQueryRef": "Trips"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactTaxiDaily"
+                                        }
+                                    },
+                                    "Property": "Corr Trips PM25"
+                                }
+                            },
+                            "queryRef": "FactTaxiDaily.Corr Trips PM25",
+                            "nativeQueryRef": "Corr Trips PM25"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactTaxiDaily"
+                                        }
+                                    },
+                                    "Property": "Corr Trips NO2"
+                                }
+                            },
+                            "queryRef": "FactTaxiDaily.Corr Trips NO2",
+                            "nativeQueryRef": "Corr Trips NO2"
+                        }
+                    ]
+                }
+            },
+            "sortDefinition": {
+                "sort": [
+                    {
+                        "field": {
+                            "Measure": {
+                                "Expression": {
+                                    "SourceRef": {
+                                        "Entity": "FactTaxiDaily"
+                                    }
+                                },
+                                "Property": "Corr Trips NO2"
+                            }
+                        },
+                        "direction": "Descending"
+                    }
+                ],
+                "isDefaultSort": false
+            }
+        },
+        "drillFilterOtherVisuals": true,
+        "objects": {
+            "values": [
+                {
+                    "properties": {
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "9D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "columnHeaders": [
+                {
+                    "properties": {
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "9D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "total": [
+                {
+                    "properties": {
+                        "totals": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "visualContainerObjects": {
+            "title": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "true"
+                                }
+                            }
+                        },
+                        "text": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Correlation by zone'"
+                                }
+                            }
+                        },
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "12D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "subTitle": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "filterConfig": {
+        "filters": [
+            {
+                "name": "f_trips_min_table",
+                "field": {
+                    "Measure": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "FactTaxiDaily"
+                            }
+                        },
+                        "Property": "Trips"
+                    }
+                },
+                "type": "Advanced",
+                "howCreated": "User",
+                "filter": {
+                    "Version": 2,
+                    "From": [
+                        {
+                            "Name": "f",
+                            "Entity": "FactTaxiDaily",
+                            "Type": 0
+                        }
+                    ],
+                    "Where": [
+                        {
+                            "Condition": {
+                                "Comparison": {
+                                    "ComparisonKind": 2,
+                                    "Left": {
+                                        "Measure": {
+                                            "Expression": {
+                                                "SourceRef": {
+                                                    "Source": "f"
+                                                }
+                                            },
+                                            "Property": "Trips"
+                                        }
+                                    },
+                                    "Right": {
+                                        "Literal": {
+                                            "Value": "100000L"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

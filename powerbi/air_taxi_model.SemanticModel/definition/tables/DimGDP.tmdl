@@ -1,0 +1,46 @@
+table DimGDP
+	lineageTag: 3a2dffe8-2d4d-4b7e-b5a6-cb370166f0cc
+	sourceLineageTag: [dbo].[DimGDP]
+
+	column year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 66fb121d-0078-48e0-8612-c8bef0455cca
+		sourceLineageTag: year
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_code
+		dataType: string
+		sourceProviderType: varchar(3)
+		lineageTag: 71133b08-f437-467d-befa-31fe041c8aa6
+		sourceLineageTag: country_code
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column gdp_usd
+		dataType: double
+		sourceProviderType: decimal(20, 2)
+		lineageTag: 7cb08028-f7b7-49e5-a129-4c8b3dc495d5
+		sourceLineageTag: gdp_usd
+		summarizeBy: none
+		sourceColumn: gdp_usd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition DimGDP = entity
+		mode: directLake
+		source
+			entityName: DimGDP
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

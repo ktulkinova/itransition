@@ -1,0 +1,146 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "column_corr_hour",
+    "position": {
+        "x": 961.0,
+        "y": 174,
+        "z": 25000,
+        "width": 303.0,
+        "height": 216,
+        "tabOrder": 25000
+    },
+    "visual": {
+        "visualType": "clusteredColumnChart",
+        "query": {
+            "queryState": {
+                "Category": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactCityHourly"
+                                        }
+                                    },
+                                    "Property": "hour"
+                                }
+                            },
+                            "queryRef": "FactCityHourly.hour",
+                            "nativeQueryRef": "hour",
+                            "active": true
+                        }
+                    ]
+                },
+                "Y": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactCityHourly"
+                                        }
+                                    },
+                                    "Property": "Corr Hour NO2"
+                                }
+                            },
+                            "queryRef": "FactCityHourly.Corr Hour NO2",
+                            "nativeQueryRef": "Corr Hour NO2"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactCityHourly"
+                                        }
+                                    },
+                                    "Property": "Corr Hour PM25"
+                                }
+                            },
+                            "queryRef": "FactCityHourly.Corr Hour PM25",
+                            "nativeQueryRef": "Corr Hour PM25"
+                        }
+                    ]
+                }
+            },
+            "sortDefinition": {
+                "sort": [
+                    {
+                        "field": {
+                            "Column": {
+                                "Expression": {
+                                    "SourceRef": {
+                                        "Entity": "FactCityHourly"
+                                    }
+                                },
+                                "Property": "hour"
+                            }
+                        },
+                        "direction": "Ascending"
+                    }
+                ],
+                "isDefaultSort": false
+            }
+        },
+        "drillFilterOtherVisuals": true,
+        "objects": {
+            "categoryAxis": [
+                {
+                    "properties": {
+                        "axisType": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Scalar'"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "visualContainerObjects": {
+            "title": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "true"
+                                }
+                            }
+                        },
+                        "text": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Correlation by hour'"
+                                }
+                            }
+                        },
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "12D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "subTitle": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

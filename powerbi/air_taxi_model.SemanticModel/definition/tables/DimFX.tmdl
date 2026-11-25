@@ -1,0 +1,37 @@
+table DimFX
+	lineageTag: c295e8d7-292f-481d-9c28-643100372545
+	sourceLineageTag: [dbo].[DimFX]
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 96ee3878-7b11-44cb-be76-94566adaa9ae
+		sourceLineageTag: date_key
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column usd_per_eur
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(10, 4)
+		lineageTag: 8f1b6b15-eb59-4977-a023-7031195bdea2
+		sourceLineageTag: usd_per_eur
+		summarizeBy: none
+		sourceColumn: usd_per_eur
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	partition DimFX = entity
+		mode: directLake
+		source
+			entityName: DimFX
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

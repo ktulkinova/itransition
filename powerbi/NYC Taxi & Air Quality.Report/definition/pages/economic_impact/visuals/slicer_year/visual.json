@@ -1,0 +1,54 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "slicer_year",
+    "position": {
+        "x": 16,
+        "y": 8,
+        "z": 29000,
+        "width": 260,
+        "height": 56,
+        "tabOrder": 29000
+    },
+    "visual": {
+        "visualType": "slicer",
+        "query": {
+            "queryState": {
+                "Values": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "DimDate"
+                                        }
+                                    },
+                                    "Property": "year"
+                                }
+                            },
+                            "queryRef": "DimDate.year",
+                            "nativeQueryRef": "year",
+                            "active": true
+                        }
+                    ]
+                }
+            }
+        },
+        "drillFilterOtherVisuals": true,
+        "objects": {
+            "data": [
+                {
+                    "properties": {
+                        "mode": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Dropdown'"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

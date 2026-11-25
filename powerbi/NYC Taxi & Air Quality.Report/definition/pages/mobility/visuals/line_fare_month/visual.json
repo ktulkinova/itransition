@@ -1,0 +1,145 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "line_fare_month",
+    "position": {
+        "x": 16,
+        "y": 447,
+        "z": 8000,
+        "width": 820,
+        "height": 261,
+        "tabOrder": 8000
+    },
+    "visual": {
+        "visualType": "lineChart",
+        "query": {
+            "queryState": {
+                "Category": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "DimDate"
+                                        }
+                                    },
+                                    "Property": "year"
+                                }
+                            },
+                            "queryRef": "DimDate.year",
+                            "nativeQueryRef": "year",
+                            "active": true
+                        },
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "DimDate"
+                                        }
+                                    },
+                                    "Property": "month"
+                                }
+                            },
+                            "queryRef": "DimDate.month",
+                            "nativeQueryRef": "month",
+                            "active": true
+                        }
+                    ]
+                },
+                "Y": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactTaxiDaily"
+                                        }
+                                    },
+                                    "Property": "Avg Fare USD"
+                                }
+                            },
+                            "queryRef": "FactTaxiDaily.Avg Fare USD",
+                            "nativeQueryRef": "Avg Fare USD"
+                        }
+                    ]
+                }
+            },
+            "sortDefinition": {
+                "sort": [
+                    {
+                        "field": {
+                            "Column": {
+                                "Expression": {
+                                    "SourceRef": {
+                                        "Entity": "DimDate"
+                                    }
+                                },
+                                "Property": "year"
+                            }
+                        },
+                        "direction": "Ascending"
+                    },
+                    {
+                        "field": {
+                            "Column": {
+                                "Expression": {
+                                    "SourceRef": {
+                                        "Entity": "DimDate"
+                                    }
+                                },
+                                "Property": "month"
+                            }
+                        },
+                        "direction": "Ascending"
+                    }
+                ],
+                "isDefaultSort": false
+            }
+        },
+        "drillFilterOtherVisuals": true,
+        "visualContainerObjects": {
+            "title": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "true"
+                                }
+                            }
+                        },
+                        "text": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Average fare by month'"
+                                }
+                            }
+                        },
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "12D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "subTitle": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

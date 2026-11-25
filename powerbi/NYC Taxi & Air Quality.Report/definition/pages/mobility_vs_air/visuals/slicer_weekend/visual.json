@@ -1,0 +1,54 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "slicer_weekend",
+    "position": {
+        "x": 288,
+        "y": 8,
+        "z": 19000,
+        "width": 260,
+        "height": 56,
+        "tabOrder": 19000
+    },
+    "visual": {
+        "visualType": "slicer",
+        "query": {
+            "queryState": {
+                "Values": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "DimDate"
+                                        }
+                                    },
+                                    "Property": "is_weekend"
+                                }
+                            },
+                            "queryRef": "DimDate.is_weekend",
+                            "nativeQueryRef": "is_weekend",
+                            "active": true
+                        }
+                    ]
+                }
+            }
+        },
+        "drillFilterOtherVisuals": true,
+        "objects": {
+            "data": [
+                {
+                    "properties": {
+                        "mode": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Dropdown'"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

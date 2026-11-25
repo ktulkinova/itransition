@@ -1,0 +1,99 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "line_trips_day",
+    "position": {
+        "x": 16,
+        "y": 174,
+        "z": 7000,
+        "width": 820,
+        "height": 261,
+        "tabOrder": 7000
+    },
+    "visual": {
+        "visualType": "lineChart",
+        "query": {
+            "queryState": {
+                "Category": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "DimDate"
+                                        }
+                                    },
+                                    "Property": "date"
+                                }
+                            },
+                            "queryRef": "DimDate.date",
+                            "nativeQueryRef": "date",
+                            "active": true
+                        }
+                    ]
+                },
+                "Y": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactTaxiDaily"
+                                        }
+                                    },
+                                    "Property": "Trips"
+                                }
+                            },
+                            "queryRef": "FactTaxiDaily.Trips",
+                            "nativeQueryRef": "Trips"
+                        }
+                    ]
+                }
+            }
+        },
+        "drillFilterOtherVisuals": true,
+        "visualContainerObjects": {
+            "title": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "true"
+                                }
+                            }
+                        },
+                        "text": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Trips per day'"
+                                }
+                            }
+                        },
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "12D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "subTitle": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

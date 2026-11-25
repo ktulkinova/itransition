@@ -1,0 +1,132 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "scatter_pm25",
+    "position": {
+        "x": 331.0,
+        "y": 174,
+        "z": 23000,
+        "width": 303.0,
+        "height": 216,
+        "tabOrder": 23000
+    },
+    "visual": {
+        "visualType": "scatterChart",
+        "query": {
+            "queryState": {
+                "Category": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "DimDate"
+                                        }
+                                    },
+                                    "Property": "date"
+                                }
+                            },
+                            "queryRef": "DimDate.date",
+                            "nativeQueryRef": "date",
+                            "active": true
+                        }
+                    ]
+                },
+                "X": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactAirQualityDaily"
+                                        }
+                                    },
+                                    "Property": "PM25"
+                                }
+                            },
+                            "queryRef": "FactAirQualityDaily.PM25",
+                            "nativeQueryRef": "PM25"
+                        }
+                    ]
+                },
+                "Y": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactTaxiDaily"
+                                        }
+                                    },
+                                    "Property": "Trips"
+                                }
+                            },
+                            "queryRef": "FactTaxiDaily.Trips",
+                            "nativeQueryRef": "Trips"
+                        }
+                    ]
+                }
+            }
+        },
+        "drillFilterOtherVisuals": true,
+        "objects": {
+            "trend": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "true"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "visualContainerObjects": {
+            "title": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "true"
+                                }
+                            }
+                        },
+                        "text": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Trips vs PM2.5'"
+                                }
+                            }
+                        },
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "12D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "subTitle": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

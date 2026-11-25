@@ -1,0 +1,38 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "card_1",
+    "position": {
+        "x": 16.0,
+        "y": 70,
+        "z": 12000,
+        "width": 303.0,
+        "height": 96,
+        "tabOrder": 12000
+    },
+    "visual": {
+        "visualType": "card",
+        "query": {
+            "queryState": {
+                "Values": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactAirQualityDaily"
+                                        }
+                                    },
+                                    "Property": "PM25"
+                                }
+                            },
+                            "queryRef": "FactAirQualityDaily.PM25",
+                            "nativeQueryRef": "PM25"
+                        }
+                    ]
+                }
+            }
+        },
+        "drillFilterOtherVisuals": true
+    }
+}

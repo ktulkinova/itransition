@@ -1,0 +1,293 @@
+{
+    "properties": {
+        "activities": [
+            {
+                "name": "nyc_taxi",
+                "type": "ExecutePipeline",
+                "dependsOn": [],
+                "policy": {
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "1c28e240-6106-4c7d-a134-6b48f15ae36f",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true,
+                    "parameters": {
+                        "year": {
+                            "value": "@pipeline().parameters.year",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "zones",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "BinarySource",
+                        "storeSettings": {
+                            "type": "HttpReadSettings",
+                            "requestMethod": "GET"
+                        },
+                        "formatSettings": {
+                            "type": "BinaryReadSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "HttpServerLocation",
+                                    "relativeUrl": "/misc/taxi_zone_lookup.csv"
+                                }
+                            },
+                            "externalReferences": {
+                                "connection": "896668ad-7b30-469c-97db-233125edb43d"
+                            }
+                        }
+                    },
+                    "sink": {
+                        "type": "BinarySink",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageWriteSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "linkedService": {
+                                "name": "bronze",
+                                "properties": {
+                                    "annotations": [],
+                                    "type": "Lakehouse",
+                                    "typeProperties": {
+                                        "workspaceId": "440b1492-88fd-44d5-bac9-a81607488e15",
+                                        "artifactId": "61574595-458d-4d9e-a259-9b3fa54d57dc",
+                                        "rootFolder": "Files"
+                                    }
+                                }
+                            },
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "LakehouseLocation",
+                                    "fileName": "taxi_zone_lookup.csv",
+                                    "folderPath": "nyc_taxi/lookup"
+                                }
+                            }
+                        }
+                    },
+                    "enableStaging": false
+                }
+            },
+            {
+                "name": "ecb_fx",
+                "type": "RefreshDataflow",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "dataflowId": "cb55794c-b48c-4ad3-bf07-2a6c1e660aa7",
+                    "workspaceId": "440b1492-88fd-44d5-bac9-a81607488e15",
+                    "notifyOption": "NoNotification",
+                    "dataflowType": "DataflowFabric"
+                }
+            },
+            {
+                "name": "bank",
+                "type": "RefreshDataflow",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "dataflowId": "fec32fde-60b6-4829-85e0-a54c0caff70a",
+                    "workspaceId": "440b1492-88fd-44d5-bac9-a81607488e15",
+                    "notifyOption": "NoNotification",
+                    "dataflowType": "DataflowFabric"
+                }
+            },
+            {
+                "name": "openaq",
+                "type": "RefreshDataflow",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 2,
+                    "retryIntervalInSeconds": 300,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "dataflowId": "d1352de2-f979-4ba4-8df0-b0352d636253",
+                    "workspaceId": "440b1492-88fd-44d5-bac9-a81607488e15",
+                    "notifyOption": "NoNotification",
+                    "dataflowType": "DataflowFabric"
+                }
+            },
+            {
+                "name": "silver_taxi",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "nyc_taxi",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "zones",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "ecb_fx",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "bank",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "openaq",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "31fb053d-cdc6-412b-9e39-95b10988fa1f",
+                    "workspaceId": "440b1492-88fd-44d5-bac9-a81607488e15"
+                }
+            },
+            {
+                "name": "silver_others",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "silver_taxi",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "9e16ec31-49c0-42b0-9936-12110392ceca",
+                    "workspaceId": "440b1492-88fd-44d5-bac9-a81607488e15"
+                }
+            },
+            {
+                "name": "refresh_silver_endpoint",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "silver_others",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "45716498-6a5c-4546-b043-44005761a1ed",
+                    "workspaceId": "440b1492-88fd-44d5-bac9-a81607488e15"
+                }
+            },
+            {
+                "name": "gold_load",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "refresh_silver_endpoint",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "b67f6570-4e3d-42f0-8ef2-e9fe7feaf2df",
+                    "workspaceId": "440b1492-88fd-44d5-bac9-a81607488e15"
+                }
+            },
+            {
+                "name": "refresh_model",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "gold_load",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "c88aa909-2829-435d-b8d7-6d69f32af0c1",
+                    "workspaceId": "440b1492-88fd-44d5-bac9-a81607488e15"
+                }
+            }
+        ],
+        "parameters": {
+            "year": {
+                "type": "string",
+                "defaultValue": "2025"
+            }
+        }
+    }
+}

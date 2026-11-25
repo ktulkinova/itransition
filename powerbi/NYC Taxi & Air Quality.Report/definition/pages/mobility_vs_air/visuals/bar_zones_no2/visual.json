@@ -1,0 +1,319 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "bar_zones_no2",
+    "position": {
+        "x": 646.0,
+        "y": 402,
+        "z": 27000,
+        "width": 303.0,
+        "height": 306,
+        "tabOrder": 27000
+    },
+    "visual": {
+        "visualType": "clusteredBarChart",
+        "query": {
+            "queryState": {
+                "Category": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "DimZone"
+                                        }
+                                    },
+                                    "Property": "zone"
+                                }
+                            },
+                            "queryRef": "DimZone.zone",
+                            "nativeQueryRef": "zone",
+                            "active": true
+                        }
+                    ]
+                },
+                "Y": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactTaxiDaily"
+                                        }
+                                    },
+                                    "Property": "Corr Trips NO2"
+                                }
+                            },
+                            "queryRef": "FactTaxiDaily.Corr Trips NO2",
+                            "nativeQueryRef": "Corr Trips NO2"
+                        }
+                    ]
+                }
+            },
+            "sortDefinition": {
+                "sort": [
+                    {
+                        "field": {
+                            "Measure": {
+                                "Expression": {
+                                    "SourceRef": {
+                                        "Entity": "FactTaxiDaily"
+                                    }
+                                },
+                                "Property": "Corr Trips NO2"
+                            }
+                        },
+                        "direction": "Descending"
+                    }
+                ],
+                "isDefaultSort": false
+            }
+        },
+        "drillFilterOtherVisuals": true,
+        "objects": {
+            "categoryAxis": [
+                {
+                    "properties": {
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "9D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "valueAxis": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "labels": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "true"
+                                }
+                            }
+                        },
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "9D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "visualContainerObjects": {
+            "title": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "true"
+                                }
+                            }
+                        },
+                        "text": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Zones with the strongest NO2 link'"
+                                }
+                            }
+                        },
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "12D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "subTitle": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "filterConfig": {
+        "filters": [
+            {
+                "name": "f_trips_min_bar",
+                "field": {
+                    "Measure": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "FactTaxiDaily"
+                            }
+                        },
+                        "Property": "Trips"
+                    }
+                },
+                "type": "Advanced",
+                "howCreated": "User",
+                "filter": {
+                    "Version": 2,
+                    "From": [
+                        {
+                            "Name": "f",
+                            "Entity": "FactTaxiDaily",
+                            "Type": 0
+                        }
+                    ],
+                    "Where": [
+                        {
+                            "Condition": {
+                                "Comparison": {
+                                    "ComparisonKind": 2,
+                                    "Left": {
+                                        "Measure": {
+                                            "Expression": {
+                                                "SourceRef": {
+                                                    "Source": "f"
+                                                }
+                                            },
+                                            "Property": "Trips"
+                                        }
+                                    },
+                                    "Right": {
+                                        "Literal": {
+                                            "Value": "100000L"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "f_top10_no2",
+                "field": {
+                    "Column": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "DimZone"
+                            }
+                        },
+                        "Property": "zone"
+                    }
+                },
+                "type": "TopN",
+                "filter": {
+                    "Version": 2,
+                    "From": [
+                        {
+                            "Name": "subquery",
+                            "Type": 2,
+                            "Expression": {
+                                "Subquery": {
+                                    "Query": {
+                                        "Version": 2,
+                                        "From": [
+                                            {
+                                                "Name": "d",
+                                                "Entity": "DimZone",
+                                                "Type": 0
+                                            },
+                                            {
+                                                "Name": "f",
+                                                "Entity": "FactTaxiDaily",
+                                                "Type": 0
+                                            }
+                                        ],
+                                        "Select": [
+                                            {
+                                                "Column": {
+                                                    "Expression": {
+                                                        "SourceRef": {
+                                                            "Source": "d"
+                                                        }
+                                                    },
+                                                    "Property": "zone"
+                                                },
+                                                "Name": "field"
+                                            }
+                                        ],
+                                        "OrderBy": [
+                                            {
+                                                "Direction": 2,
+                                                "Expression": {
+                                                    "Measure": {
+                                                        "Expression": {
+                                                            "SourceRef": {
+                                                                "Source": "f"
+                                                            }
+                                                        },
+                                                        "Property": "Corr Trips NO2"
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "Top": 10
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "Name": "d",
+                            "Entity": "DimZone",
+                            "Type": 0
+                        }
+                    ],
+                    "Where": [
+                        {
+                            "Condition": {
+                                "In": {
+                                    "Expressions": [
+                                        {
+                                            "Column": {
+                                                "Expression": {
+                                                    "SourceRef": {
+                                                        "Source": "d"
+                                                    }
+                                                },
+                                                "Property": "zone"
+                                            }
+                                        }
+                                    ],
+                                    "Table": {
+                                        "SourceRef": {
+                                            "Source": "subquery"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

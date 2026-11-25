@@ -1,0 +1,38 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "card_2",
+    "position": {
+        "x": 331.0,
+        "y": 70,
+        "z": 21000,
+        "width": 303.0,
+        "height": 96,
+        "tabOrder": 21000
+    },
+    "visual": {
+        "visualType": "card",
+        "query": {
+            "queryState": {
+                "Values": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactTaxiDaily"
+                                        }
+                                    },
+                                    "Property": "Corr Trips NO2"
+                                }
+                            },
+                            "queryRef": "FactTaxiDaily.Corr Trips NO2",
+                            "nativeQueryRef": "Corr Trips NO2"
+                        }
+                    ]
+                }
+            }
+        },
+        "drillFilterOtherVisuals": true
+    }
+}

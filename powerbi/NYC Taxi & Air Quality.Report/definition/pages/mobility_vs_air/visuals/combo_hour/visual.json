@@ -1,0 +1,160 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+    "name": "combo_hour",
+    "position": {
+        "x": 961.0,
+        "y": 402,
+        "z": 28000,
+        "width": 303.0,
+        "height": 306,
+        "tabOrder": 28000
+    },
+    "visual": {
+        "visualType": "lineClusteredColumnComboChart",
+        "query": {
+            "queryState": {
+                "Category": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "FactCityHourly"
+                                        }
+                                    },
+                                    "Property": "hour"
+                                }
+                            },
+                            "queryRef": "FactCityHourly.hour",
+                            "nativeQueryRef": "hour",
+                            "active": true
+                        }
+                    ]
+                },
+                "Y": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Aggregation": {
+                                    "Expression": {
+                                        "Column": {
+                                            "Expression": {
+                                                "SourceRef": {
+                                                    "Entity": "FactCityHourly"
+                                                }
+                                            },
+                                            "Property": "trips"
+                                        }
+                                    },
+                                    "Function": 1
+                                }
+                            },
+                            "queryRef": "Avg(FactCityHourly.trips)",
+                            "nativeQueryRef": "Average of trips"
+                        }
+                    ]
+                },
+                "Y2": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Aggregation": {
+                                    "Expression": {
+                                        "Column": {
+                                            "Expression": {
+                                                "SourceRef": {
+                                                    "Entity": "FactCityHourly"
+                                                }
+                                            },
+                                            "Property": "no2_avg"
+                                        }
+                                    },
+                                    "Function": 1
+                                }
+                            },
+                            "queryRef": "Avg(FactCityHourly.no2_avg)",
+                            "nativeQueryRef": "Average of no2_avg"
+                        }
+                    ]
+                }
+            },
+            "sortDefinition": {
+                "sort": [
+                    {
+                        "field": {
+                            "Column": {
+                                "Expression": {
+                                    "SourceRef": {
+                                        "Entity": "FactCityHourly"
+                                    }
+                                },
+                                "Property": "hour"
+                            }
+                        },
+                        "direction": "Ascending"
+                    }
+                ],
+                "isDefaultSort": false
+            }
+        },
+        "drillFilterOtherVisuals": true,
+        "objects": {
+            "categoryAxis": [
+                {
+                    "properties": {
+                        "axisType": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Scalar'"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "visualContainerObjects": {
+            "title": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "true"
+                                }
+                            }
+                        },
+                        "text": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Trips and NO2 by hour of day'"
+                                }
+                            }
+                        },
+                        "fontSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "12D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "subTitle": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

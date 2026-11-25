@@ -1,0 +1,96 @@
+table FactCityHourly
+	lineageTag: c1a420a7-7724-4bfc-9cf3-7860731f5add
+	sourceLineageTag: [dbo].[FactCityHourly]
+
+	measure 'Corr Hour PM25' =
+			VAR t = FILTER(FactCityHourly, NOT ISBLANK(FactCityHourly[pm25_avg]))
+			VAR n = COUNTROWS(t)
+			VAR sx = SUMX(t, FactCityHourly[pm25_avg])
+			VAR sy = SUMX(t, FactCityHourly[trips])
+			VAR sxy = SUMX(t, FactCityHourly[pm25_avg] * FactCityHourly[trips])
+			VAR sx2 = SUMX(t, FactCityHourly[pm25_avg] * FactCityHourly[pm25_avg])
+			VAR sy2 = SUMX(t, FactCityHourly[trips] * FactCityHourly[trips])
+			RETURN
+			    DIVIDE(n * sxy - sx * sy, SQRT((n * sx2 - sx * sx) * (n * sy2 - sy * sy)))
+		formatString: 0.00
+		lineageTag: b6e362e2-0ae8-4424-ad3d-4f896b8541b5
+
+	measure 'Corr Hour NO2' =
+			VAR t = FILTER(FactCityHourly, NOT ISBLANK(FactCityHourly[no2_avg]))
+			VAR n = COUNTROWS(t)
+			VAR sx = SUMX(t, FactCityHourly[no2_avg])
+			VAR sy = SUMX(t, FactCityHourly[trips])
+			VAR sxy = SUMX(t, FactCityHourly[no2_avg] * FactCityHourly[trips])
+			VAR sx2 = SUMX(t, FactCityHourly[no2_avg] * FactCityHourly[no2_avg])
+			VAR sy2 = SUMX(t, FactCityHourly[trips] * FactCityHourly[trips])
+			RETURN
+			    DIVIDE(n * sxy - sx * sy, SQRT((n * sx2 - sx * sx) * (n * sy2 - sy * sy)))
+		formatString: 0.00
+		lineageTag: 192fea6f-77b3-456e-b6ea-0c8b55dbd3f4
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 517e0232-8db9-4d8e-9478-eeec31d4a9c6
+		sourceLineageTag: date_key
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column hour
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: ec32a37d-8996-46b0-8bfd-02874e2d2b2a
+		sourceLineageTag: hour
+		summarizeBy: none
+		sourceColumn: hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column trips
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 6325d29a-7dcd-4ce1-8ff8-da47ae85323c
+		sourceLineageTag: trips
+		summarizeBy: sum
+		sourceColumn: trips
+
+		annotation SummarizationSetBy = Automatic
+
+	column pm25_avg
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 3fa30c4d-c9f9-416d-a40d-26f2c2c11b36
+		sourceLineageTag: pm25_avg
+		summarizeBy: sum
+		sourceColumn: pm25_avg
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column no2_avg
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 4c2abcb1-8514-4395-9fef-1358a46bdff2
+		sourceLineageTag: no2_avg
+		summarizeBy: sum
+		sourceColumn: no2_avg
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FactCityHourly = entity
+		mode: directLake
+		source
+			entityName: FactCityHourly
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+
